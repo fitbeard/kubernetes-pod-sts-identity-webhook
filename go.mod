@@ -1,4 +1,4 @@
-module github.com/aws/amazon-eks-pod-identity-webhook
+module github.com/fitbeard/kubernetes-pod-sts-identity-webhook
 
 go 1.25.5
 

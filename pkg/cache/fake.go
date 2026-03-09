@@ -2,11 +2,12 @@ package cache
 
 import (
 	"encoding/json"
-	v1 "k8s.io/api/core/v1"
 	"strconv"
 	"sync"
 
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg"
+	v1 "k8s.io/api/core/v1"
+
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg"
 )
 
 // FakeServiceAccountCache is a goroutine safe cache for testing

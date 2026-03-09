@@ -19,9 +19,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg/filesystem"
-	"k8s.io/klog/v2"
 	"sync"
+
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg/filesystem"
+	"k8s.io/klog/v2"
 )
 
 type Config interface {

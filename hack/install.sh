@@ -3,7 +3,7 @@ set -euo pipefail
 
 source hack/setup-go.sh
 
-T=github.com/aws/amazon-eks-pod-identity-webhook
+T=github.com/fitbeard/kubernetes-pod-sts-identity-webhook
 GOOS=$(go env GOOS)
 go version
 

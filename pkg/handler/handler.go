@@ -27,10 +27,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg/containercredentials"
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg/containercredentials"
 
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg"
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg/cache"
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg"
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg/cache"
 	"k8s.io/api/admission/v1beta1"
 	admissionregistrationv1beta1 "k8s.io/api/admissionregistration/v1beta1"
 	corev1 "k8s.io/api/core/v1"

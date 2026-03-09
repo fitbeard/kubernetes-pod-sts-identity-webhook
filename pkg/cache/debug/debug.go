@@ -3,10 +3,11 @@ package debug
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg/cache"
+	"net/http"
+
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg/cache"
 	"k8s.io/api/admission/v1beta1"
 	"k8s.io/klog/v2"
-	"net/http"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

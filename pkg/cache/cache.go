@@ -25,7 +25,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/aws/amazon-eks-pod-identity-webhook/pkg"
+	"github.com/fitbeard/kubernetes-pod-sts-identity-webhook/pkg"
 	"github.com/prometheus/client_golang/prometheus"
 	"golang.org/x/time/rate"
 	v1 "k8s.io/api/core/v1"
