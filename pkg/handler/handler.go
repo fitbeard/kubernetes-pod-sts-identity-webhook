@@ -74,6 +74,11 @@ func WithRegion(region string) ModifierOpt {
 	return func(m *Modifier) { m.Region = region }
 }
 
+// WithEndpointUrl sets the modifier endpoint url
+func WithEndpointUrl(endpointUrl string) ModifierOpt {
+	return func(m *Modifier) { m.EndpointUrl = endpointUrl }
+}
+
 // WithAnnotationDomain adds an annotation domain
 func WithAnnotationDomain(domain string) ModifierOpt {
 	return func(m *Modifier) { m.AnnotationDomain = domain }
@@ -110,6 +115,7 @@ type Modifier struct {
 	AnnotationDomain           string
 	MountPath                  string
 	Region                     string
+	EndpointUrl                string
 	Cache                      cache.ServiceAccountCache
 	ContainerCredentialsConfig containercredentials.Config
 	volName                    string
@@ -175,6 +181,7 @@ func (m *Modifier) addEnvToContainer(container *corev1.Container, tokenFilePath 
 		containerCredentialsKeysDefined bool
 		regionKeyDefined                bool
 		regionalStsKeyDefined           bool
+		endpointKeyDefined              bool
 	)
 	webIdentityKeys := map[string]string{
 		"AWS_ROLE_ARN":                "",
@@ -189,6 +196,7 @@ func (m *Modifier) addEnvToContainer(container *corev1.Container, tokenFilePath 
 		"AWS_DEFAULT_REGION": "",
 	}
 	stsKey := "AWS_STS_REGIONAL_ENDPOINTS"
+	endpointKey := "AWS_ENDPOINT_URL"
 	for _, env := range container.Env {
 		if _, ok := webIdentityKeys[env.Name]; ok {
 			klog.V(4).Infof("Web identity env variable %s is already defined in the pod spec", env)
@@ -206,6 +214,10 @@ func (m *Modifier) addEnvToContainer(container *corev1.Container, tokenFilePath 
 		if env.Name == stsKey {
 			klog.V(4).Infof("AWS STS env variable %s is already defined in the pod spec", env)
 			regionalStsKeyDefined = true
+		}
+		if env.Name == endpointKey {
+			klog.V(4).Infof("AWS Endpoint URL env variable %s is already defined in the pod spec", env)
+			endpointKeyDefined = true
 		}
 	}
 
@@ -234,6 +246,14 @@ func (m *Modifier) addEnvToContainer(container *corev1.Container, tokenFilePath 
 		}, corev1.EnvVar{
 			Name:  "AWS_REGION",
 			Value: m.Region,
+		})
+		changed = true
+	}
+
+	if !endpointKeyDefined && m.EndpointUrl != "" {
+		env = append(env, corev1.EnvVar{
+			Name:  "AWS_ENDPOINT_URL",
+			Value: m.EndpointUrl,
 		})
 		changed = true
 	}
